@@ -20,7 +20,7 @@ You need made a date_loader.txt. which must have 3 columns in each rows. The 1st
 In this above example, the students of serial number 1, 3, 5, 7 were present on date: 15/10/2024.<br>
 Similarly, the students of serial number 2, 4, 6, 7 were absent on 18/10/2024.
 
-### 1. open
+### 2. run erp.py script
 ```
  python3 erp.py -u username -p password -sm semester -sb subject
 ```
