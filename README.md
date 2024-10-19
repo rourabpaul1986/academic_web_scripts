@@ -12,6 +12,9 @@ You need made a date_loader.txt. which must have 3 columns in each rows. The 1st
 18/10/2024; A; 2, 4, 6, 7
 17/10/2024; P; 1, 3, 5, 7, 22
 ```
+In this above example on date: 15/10/2024, the students of serial number 1, 3, 5, 7 were present.\n
+Similarly on 18/10/2024, the students of serial number 2, 4, 6, 7 were absent.
+
 ### 1. open
 ```
  python3 erp.py -u username -p password -sm semester -sb subject
