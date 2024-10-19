@@ -1,5 +1,9 @@
 # ERP Attendance Upload 
-This script can upload attenance of students of all dates in ERP system in a single click.
+This script can upload attenance of students of all dates in ERP system in a single click. This program nees seleneium and webdriver_manager packages. To install seleneium you need to write
+```
+pip3 selenium
+pip3 webdriver_manager
+```
 This repository has two files: (1) date_loader.txt and (2)erp.py
 ## Steps
 The erp.py required 4 command line argumenrs
@@ -12,7 +16,7 @@ You need made a date_loader.txt. which must have 3 columns in each rows. The 1st
 18/10/2024; A; 2, 4, 6, 7
 17/10/2024; P; 1, 3, 5, 7, 22
 ```
-In this above example, the students of serial number 1, 3, 5, 7 were present on date: 15/10/2024.\n
+In this above example, the students of serial number 1, 3, 5, 7 were present on date: 15/10/2024.<br>
 Similarly, the students of serial number 2, 4, 6, 7 were absent on 18/10/2024.
 
 ### 1. open
@@ -23,7 +27,7 @@ For an example username: 123456789, password=password, semester='ODD SEM 2024' -
 ```
  python3 erp.py -u 123456789 -p password -sm 'ODD SEM 2024 - ITER' -sb 'CSE3156/Digital Forensics Workshop'
 ```
-If you want to run the chorm in headless mode you need to write
+If you want to run the chorme in headless mode you need to write
 ```
  python3 erp.py -u 123456789 -p password -sm 'ODD SEM 2024 - ITER' -sb 'CSE3156/Digital Forensics Workshop' -hl headless
 ```
