@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.chrome.options import Options
 import time
 import os
 from datetime import datetime
@@ -12,13 +13,30 @@ import webdriver_manager
 import selenium
 import sys
 import argparse
+import threading
 
-print("#####################This Program is Tested With######################")
-print(f"python version of this device : {sys.version}")
-print(f"selenium version of this device: {selenium.__version__}")
-print(f"webdriver_manager version of this device :  {webdriver_manager.__version__}")
-print("The program is tested with python  3.9.6, selenium 4.25.0 &\nwebdriver_manager  4.0.2")
-print("#####################################################################")
+def click_button():
+    try:
+        button.click()
+        #print("Button clicked successfully!")
+    except Exception as e:
+        print(f"Error to load ERP: {e}")
+        
+def read_nth_column(file_path, n, separator): 
+    column_data = []
+    with open(file_path, 'r') as file:
+        for line in file:
+            # Remove leading/trailing whitespace and split the line into columns
+            columns = line.strip().split(separator)
+            if len(columns) > n:  # Check if the nth column exists
+                column_data.append(columns[n])
+    return column_data
+print("#######################This Program is Tested With Below Version :#######################")
+print(f"\t python version of this device : {sys.version}")
+print(f"\t selenium version of this device: {selenium.__version__}")
+print(f"\t webdriver_manager version of this device :  {webdriver_manager.__version__}")
+print("\t The program is tested with python  3.9.6, selenium 4.25.0 &\n\twebdriver_manager  4.0.2")
+print("###################################################################################")
 
 
 parser = argparse.ArgumentParser(description="A simple argument parser example.")
@@ -28,6 +46,8 @@ parser.add_argument('-u', '--username', type=str, help='Your ERP username', requ
 parser.add_argument('-p', '--password', type=str, help='Your ERP Password', required=True)
 parser.add_argument('-sm', '--semester', type=str, help='Enter Semester ', required=True)
 parser.add_argument('-sb', '--subject', type=str, help='Enter Subject ', required=True)
+parser.add_argument('-hl', "--headless", type=str, default='', help="to run chrome in headless mode")
+
 parser.add_argument('--verbose', action='store_true', help='Enable verbose mode')
 
 # Parse the arguments
@@ -41,21 +61,13 @@ username=args.username
 password= args.password  
 semester=args.semester
 subject=args.subject
-print(f"Hi {username}, you have chosen Semester: {semester} \nSubjects : {subject} for ERP Attendance Script")
+print(f"\t Hi {username}, you have chosen Semester: {semester} \n\t Subjects : {subject} for ERP Attendance Script")
 print("#####################################################################")   
 if args.verbose:
  print("Verbose mode is enabled.")
 ##############################################################
 
-def read_nth_column(file_path, n, separator): 
-    column_data = []
-    with open(file_path, 'r') as file:
-        for line in file:
-            # Remove leading/trailing whitespace and split the line into columns
-            columns = line.strip().split(separator)
-            if len(columns) > n:  # Check if the nth column exists
-                column_data.append(columns[n])
-    return column_data
+
 
 file_name = "date_loader.txt"
 dates = read_nth_column(file_name, 0, ";")
@@ -71,13 +83,22 @@ t=max_date
 print(f"You have entered Starting Date: {f} & Last Date : {t} in date_loader.txt")
 #print(sl)
 
+chrome_options = Options()
+chrome_options.add_argument("--headless")  # Enable headless mode
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--window-size=1920x1080") 
 # Optionally, you can use ChromeDriverManager for automatic management of the driver
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+if(args.headless=="headless"): 
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+else:
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
 # If using a downloaded chromedriver
 # driver = webdriver.Chrome(executable_path='/path/to/chromedriver')
 
 driver.get('http://10.0.2.45:8082/CLXOAuthServer/')
+
 driver.maximize_window()
 # Perform actions...
 username_input = driver.find_element(By.ID, "j_username")
@@ -89,10 +110,30 @@ try:
     button = WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'buttonui') and normalize-space(text())='Login']"))
     )
-    button.click()
+    ##################################################
+    # Create a thread to handle the button click
+    click_thread = threading.Thread(target=click_button)
+    click_thread.start()
+    print("ERP Loading Started")
+    # Print loading messages while waiting for the button click to complete
+    loading_percent = 0
+    while click_thread.is_alive():
+     dot="|"
+     #print(f"Loading... {loading_percent}%")
+     print(f"{dot}{loading_percent}%", end='', flush=True) 
+     time.sleep(1.2)  # Adjust the sleep time to control how often the message is printed
+     loading_percent += 1
+     dot=f"{dot}|"
+     if loading_percent > 100:
+        loading_percent = 0
+
+    # Join the thread to ensure it finishes before moving on
+    click_thread.join()
+    print(f"\nsuccessfully logged in with {username} credentials")
+    ####################################################
 except Exception as e:
     print(f"Error: {e}")
-print(f"successfully logged in with {username} credentials")
+
 # Keep the browser open for a while to see the result (for demonstration)
 # Locate the element by its id and click it
 webkiosk_li = WebDriverWait(driver, 10).until(
@@ -210,18 +251,18 @@ for i in range(0, len(dates)):
     ###################################################################
     sl_list = sl[i].split(", ") ##split by comma
     for j in range(len(sl_list)):
-     print(f"sl list {sl_list[j]}")
+     #print(f"sl list {sl_list[j]}")
      #students=sl_list[j]
      students= sl_list[j].replace(" ", "")
      student=int(students)-1 # Callibration of given Serial Number with ERP Serial Number
      ###################################################################
      absent_radio_button_id = f"status{s_inv}{student}"  
-     print(absent_radio_button_id)
+     #print(absent_radio_button_id)
      absent_radio_button = WebDriverWait(driver, 10).until(
      EC.element_to_be_clickable((By.ID, absent_radio_button_id))
      )
      absent_radio_button.click()
-     print(f"{absent_radio_button_id} is clicked")   
+     #print(f"{absent_radio_button_id} is clicked")   
   
     save_attendance_button = WebDriverWait(driver, 10).until(
     EC.element_to_be_clickable((By.XPATH, "//a[contains(text(), 'Save Attendance')]"))
@@ -232,5 +273,4 @@ for i in range(0, len(dates)):
 
 
 print(f"\033[31m{username} all your attendance successfully uploaded in ERP\033[0m")
-#driver.quit()
-
+driver.quit()
