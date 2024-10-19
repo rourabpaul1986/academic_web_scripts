@@ -4,6 +4,8 @@ This script can upload attenance of students of all dates in ERP system in a sin
 pip3 selenium
 pip3 webdriver_manager
 ```
+The program is tested with <b>python 3.9.6</b>, selenium 4.25.0 &
+	webdriver_manager  4.0.2
 This repository has two files: (1) date_loader.txt and (2)erp.py
 ## Steps
 The erp.py required 4 command line argumenrs
