@@ -1,6 +1,6 @@
-# Install Vivado in Ubuntu 24.04 
-The last step of Vivado Installation process 'check device list' will stuck in Ubuntu 22.04 and above version. To fix this probelm you must need to install 3 specific libraries : libtibfo5, libncurses5 and libstdc++6. However Ubuntu 24.04 has preinstalled libtibfo6, libncurses6. If you try to install these 3 packages using sudo qpt, it will not work.
-
+# ERP Attendance Upload 
+This script can upload attenance of students of all dates in ERP system in a single click.
+This repository has two files: (1) date_loader.txt and (2)erp.py
 ## Steps
 The below steps need follow sequentially:
 
