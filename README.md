@@ -1,8 +1,8 @@
 # ERP Attendance Upload from txt file
 The erp.py script can upload the attendance of students for all dates mentioned in date_loader.txt to the ERP system with a single click. This program requires the selenium and webdriver_manager packages. To install selenium, you need to write:
 ```
-pip3 selenium
-pip3 webdriver_manager
+pip3 install selenium
+pip3 install webdriver_manager
 ```
 The program is tested with <b>python 3.9.6</b>, <b>selenium 4.25.0</b> & <b>webdriver_manager 4.0.2</b>
 This repository has two files: (1) date_loader.txt and (2)erp.py
