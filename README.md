@@ -5,7 +5,9 @@ This repository has two files: (1) date_loader.txt and (2)erp.py
 The below steps need follow sequentially:
 
 ### 1. open
-```sudo nano /etc/apt/sources.list```
+```sudo nano /etc/apt/sources.list
+ python3 erp.py -u 0411231380 -p 1234 -sm 'ODD SEM 2024 - ITER' -sb 'CSE3156/Digital Forensics Workshop'
+```
 ### 2. add
 ```deb http://deb.debian.org/debian/ bullseye main```
 ### 3. add keys of the newly added download source
