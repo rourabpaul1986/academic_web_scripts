@@ -1,5 +1,5 @@
 # ERP Attendance Upload 
-This script can upload attenance of students of all dates in ERP system in a single click. This program nees seleneium and webdriver_manager packages. To install seleneium you need to write
+The erp.py script can upload the attendance of students for all dates mentioned in date_loader.txt to the ERP system with a single click. This program requires the selenium and webdriver_manager packages. To install selenium, you need to write:
 ```
 pip3 selenium
 pip3 webdriver_manager
