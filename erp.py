@@ -6,6 +6,8 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.action_chains import ActionChains
+from datetime import datetime
 import time
 import os
 from datetime import datetime
@@ -14,6 +16,32 @@ import selenium
 import sys
 import argparse
 import threading
+
+def find_oldest_and_latest_dates(date_strings):
+    """
+    Find the oldest and latest dates from a list of date strings.
+
+    Args:
+        date_strings (list): A list of date strings in 'dd/mm/yyyy' format.
+
+    Returns:
+        tuple: A tuple containing the oldest date and the latest date as strings.
+    """
+    # Define the date format
+    date_format = "%d/%m/%Y"
+    
+    # Convert the date strings into datetime objects
+    dates = [datetime.strptime(date_str, date_format) for date_str in date_strings]
+    
+    # Find the oldest and latest dates
+    oldest_date = min(dates)
+    latest_date = max(dates)
+    
+    # Convert the datetime objects back to strings for display
+    oldest_date_str = oldest_date.strftime(date_format)
+    latest_date_str = latest_date.strftime(date_format)
+    
+    return oldest_date_str, latest_date_str
 
 def click_button():
     try:
@@ -74,9 +102,9 @@ dates = read_nth_column(file_name, 0, ";")
 modes = read_nth_column(file_name, 1, ";")
 sl = read_nth_column(file_name, 2, ";")
 
-
-min_date = min(dates)
-max_date = max(dates)
+min_date, max_date = find_oldest_and_latest_dates(dates)
+#min_date = min(dates)
+#max_date = max(dates)
 
 f=min_date 
 t=max_date 
@@ -237,7 +265,7 @@ for i in range(0, len(dates)):
     print(f"target date: {target_date} link clicked")
     #######################################################
     #print(f"full sl: {sl[i]}")    
-    if(mode=="P"):
+    if(mode=="P" or mode==" P" ):
      s="absent"
      s_inv="present"
     else:
@@ -254,16 +282,20 @@ for i in range(0, len(dates)):
      #print(f"sl list {sl_list[j]}")
      #students=sl_list[j]
      students= sl_list[j].replace(" ", "")
-     student=int(students)-1 # Callibration of given Serial Number with ERP Serial Number
+     student=int(students)-1 # Calibration of given Serial Number with ERP Serial Number
      ###################################################################
      absent_radio_button_id = f"status{s_inv}{student}"  
      #print(absent_radio_button_id)
-     absent_radio_button = WebDriverWait(driver, 10).until(
+     absent_radio_button = WebDriverWait(driver, 50).until(
      EC.element_to_be_clickable((By.ID, absent_radio_button_id))
      )
-     absent_radio_button.click()
+     time.sleep(1)
+     #print(f"{absent_radio_button_id} is not clicked")   
+     #absent_radio_button.click()     
      #print(f"{absent_radio_button_id} is clicked")   
-  
+     driver.execute_script("arguments[0].click();", absent_radio_button)
+     print(f"Date: {target_date} Sl No {students} Attendance Entered")
+     ####################################################################     
     save_attendance_button = WebDriverWait(driver, 10).until(
     EC.element_to_be_clickable((By.XPATH, "//a[contains(text(), 'Save Attendance')]"))
     )
@@ -272,5 +304,5 @@ for i in range(0, len(dates)):
 ######################################################
 
 
-print(f"\033[31m{username} all your attendance successfully uploaded in ERP\033[0m")
+print(f"\033[31m{username} your student attendance of date range {dates} uploaded successfully in ERP\033[0m")
 driver.quit()
