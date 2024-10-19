@@ -258,7 +258,7 @@ for i in range(0, len(dates)):
     target_date = dates[i]
     mode = modes[i]
     #######################################################
-    date_link = WebDriverWait(driver, 10).until(
+    date_link = WebDriverWait(driver, 50).until(
     EC.presence_of_element_located((By.XPATH, f"//a[contains(text(), '{target_date}')]"))
     )
     date_link.click() 
@@ -271,7 +271,7 @@ for i in range(0, len(dates)):
     else:
      s="present"
      s_inv="absent"
-    status_radio_button = WebDriverWait(driver, 10).until(
+    status_radio_button = WebDriverWait(driver, 50).until(
          EC.element_to_be_clickable((By.ID, f"all{s}"))
     )
     status_radio_button.click()
@@ -296,11 +296,11 @@ for i in range(0, len(dates)):
      driver.execute_script("arguments[0].click();", absent_radio_button)
      print(f"Date: {target_date} Sl No {students} Attendance Entered")
      ####################################################################     
-    save_attendance_button = WebDriverWait(driver, 10).until(
+    save_attendance_button = WebDriverWait(driver, 50).until(
     EC.element_to_be_clickable((By.XPATH, "//a[contains(text(), 'Save Attendance')]"))
     )
     save_attendance_button.click()
-    print(f"Attendance of {target_date} of \nSerial number: {sl_list} is uploaded in ERP ")
+    print(f"Attendance of {target_date} of Serial number: {sl_list} is uploaded in ERP ")
 ######################################################
 
 
