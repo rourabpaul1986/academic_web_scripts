@@ -21,16 +21,17 @@ Similarly, the students of serial number 2, 4, 6, 7 were absent on 18/10/2024.
 ### 2. run erp.py script
 The erp.py required 4 command line argumenrs
 ```
- python3 erp.py -u username -p password -sm semester -sb subject
+ python3 erp.py -u username -p password -sm semester -sb subject -hl headless
 ```
 For an example username: 123456789, password=password, semester='ODD SEM 2024 - ITER' and subject='CSE3156/Digital Forensics Workshop'. Please check the semester and subjects from details from your ERP login->webkisok->acamdemic  profile->student attendance-> dropdowns.
-```
- python3 erp.py -u 123456789 -p password -sm 'ODD SEM 2024 - ITER' -sb 'CSE3156/Digital Forensics Workshop'
-```
+
 If you want to run the chorme in headless mode you need to write
 ```
  python3 erp.py -u 123456789 -p password -sm 'ODD SEM 2024 - ITER' -sb 'CSE3156/Digital Forensics Workshop' -hl headless
 ```
-
+if you want to run with Chrome Gui
+```
+ python3 erp.py -u 123456789 -p password -sm 'ODD SEM 2024 - ITER' -sb 'CSE3156/Digital Forensics Workshop'
+```
 <b>Feel free to contact me rourabpaul@soa.ac.in</b>
 
