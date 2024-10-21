@@ -7,9 +7,7 @@ pip3 install webdriver_manager
 The program is tested with <b>python 3.9.6</b>, <b>selenium 4.25.0</b> & <b>webdriver_manager 4.0.2</b>
 This repository has two files: (1) date_loader.txt and (2)erp.py
 ## Steps
-The erp.py required 4 command line argumenrs
-
-
+The execution is involved with two steps: (1) Writing date_loader.txt in proper format 7 (2) Run erp.py script with required command line arguments
 ### 1. Write date_loader.txt
 You need to make a date_loader.txt file which must have 3 columns in each rows. The 1st column stores the date, 2nd column stores the student attendance status ('P'/'A') and finaly the 3rd column should be the serial number of the students. <b>Please be carefull, date_loader.txt must not have any empty lines</b>
 ```
@@ -21,6 +19,7 @@ In this above example, the students of serial number 1, 3, 5, 7 were present on 
 Similarly, the students of serial number 2, 4, 6, 7 were absent on 18/10/2024.
 
 ### 2. run erp.py script
+The erp.py required 4 command line argumenrs
 ```
  python3 erp.py -u username -p password -sm semester -sb subject
 ```
