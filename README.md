@@ -23,7 +23,7 @@ The erp.py required 5 command line argumenrs
 ```
  python3 erp.py -u username -p password -sm semester -sb subject -hl headless
 ```
-For an example username: 123456789, password=password, semester='ODD SEM 2024 - ITER' and subject='CSE3156/Digital Forensics Workshop'. The 5th command -hl headless is to run the program in headless mode (Chorme will run in backgrounnd). Please check the semester and subjects from details from your ERP login->webkisok->acamdemic  profile->student attendance-> dropdowns.
+For an example username: 123456789, password=password, semester='ODD SEM 2024 - ITER' and subject='CSE3156/Digital Forensics Workshop'. The 5th command -hl headless is to run the program in headless mode (Chorme will run in backgrounnd). Please check the semester and subjects from details from your ERP login->webkisok(side bar)->>webkisok->select institurte->acamdemic info->student attendance-> dropdowns.
 
 If you want to run the chorme in headless mode you need to write
 ```
