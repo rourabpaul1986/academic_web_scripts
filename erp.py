@@ -8,6 +8,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 from datetime import datetime
+from selenium.common.exceptions import TimeoutException
 import time
 import os
 from datetime import datetime
@@ -49,7 +50,7 @@ def click_button():
         #print("Button clicked successfully!")
     except Exception as e:
         print(f"Error to load ERP: {e}")
-        
+       
 def read_nth_column(file_path, n, separator): 
     column_data = []
     with open(file_path, 'r') as file:
@@ -73,7 +74,7 @@ parser = argparse.ArgumentParser(description="A simple argument parser example."
 parser.add_argument('-u', '--username', type=str, help='Your ERP username', required=True)
 parser.add_argument('-p', '--password', type=str, help='Your ERP Password', required=True)
 parser.add_argument('-sm', '--semester', type=str, help='Enter Semester ', required=True)
-parser.add_argument('-sb', '--subject', type=str, help='Enter Subject ', required=True)
+parser.add_argument('-sb', '--subject', type=str, help='Enter Subject', required=True)
 parser.add_argument('-hl', "--headless", type=str, default='', help="to run chrome in headless mode")
 
 parser.add_argument('--verbose', action='store_true', help='Enable verbose mode')
@@ -97,10 +98,11 @@ if args.verbose:
 
 
 
-file_name = "date_loader.txt"
+file_name = "date_loader1.txt"
 dates = read_nth_column(file_name, 0, ";")
-modes = read_nth_column(file_name, 1, ";")
-sl = read_nth_column(file_name, 2, ";")
+times = read_nth_column(file_name, 1, ";")
+modes = read_nth_column(file_name, 2, ";")
+sl = read_nth_column(file_name, 3, ";")
 
 min_date, max_date = find_oldest_and_latest_dates(dates)
 #min_date = min(dates)
@@ -256,13 +258,50 @@ print(f"Date range: {f} to {t} is loaded in ERP")
 
 for i in range(0, len(dates)):
     target_date = dates[i]
+    target_time = times[i]
+    print(f"target time:{target_time} target date:{target_date}")
     mode = modes[i]
-    #######################################################
-    date_link = WebDriverWait(driver, 50).until(
-    EC.presence_of_element_located((By.XPATH, f"//a[contains(text(), '{target_date}')]"))
-    )
-    date_link.click() 
-    print(f"target date: {target_date} link clicked")
+    #xpath_expression = f"//tr[td/a[contains(text(), '{target_date}')] and td[contains(text(), '{target_time}')]]"
+    # XPath to find the row where the <a> contains the date and the <td> contains the time
+    # XPath to locate the input field
+    input_xpath = "//input[@type='search' and contains(@class, 'form-control input-sm')]"
+
+    
+    # Wait for the input field to be present
+    search_input = WebDriverWait(driver, 10).until(
+    EC.presence_of_element_located((By.XPATH, input_xpath)))
+    
+    # Clear the input field if needed, and type the desired text
+    search_input.clear()
+    search_input.send_keys(target_time)
+    print(f"{target_time} entered successfully.")
+    time.sleep(1)
+    xpath_expression=f"//a[contains(text(), '{target_date}')]"
+    ##################date clicking#####################################
+    ################## Date Clicking #####################################
+    try:
+        # Attempt to find the date link
+        date_link = WebDriverWait(driver, 20).until(
+            EC.element_to_be_clickable((By.XPATH, xpath_expression))
+        )
+        
+        # Scroll to the element to make sure it is visible in the viewport
+        driver.execute_script("arguments[0].scrollIntoView(true);", date_link)
+        
+        # Click the element using JavaScript if normal click fails
+        driver.execute_script("arguments[0].click();", date_link)
+        
+        print(f"Class on: {target_date}, Time: {target_time} link opened")
+
+    except TimeoutException as e:
+        # Handle the case where the target date link is not found
+        print(f"Error: Target date '{target_date}' not found within the time limit.")
+        print(f"Exception message: {str(e)}")
+        sys.exit(1)
+    except Exception as e:
+        # Handle any other exceptions
+        print(f"An error occurred: {str(e)}")
+        sys.exit(1)
     #######################################################
     #print(f"full sl: {sl[i]}")    
     if(mode=="P" or mode==" P" ):
@@ -274,7 +313,9 @@ for i in range(0, len(dates)):
     status_radio_button = WebDriverWait(driver, 50).until(
          EC.element_to_be_clickable((By.ID, f"all{s}"))
     )
-    status_radio_button.click()
+    time.sleep(1)
+    #status_radio_button.click()
+    driver.execute_script("arguments[0].click();", status_radio_button)
     print(f"All {s} of target date: {target_date} link is clicked")
     ###################################################################
     sl_list = sl[i].split(", ") ##split by comma
