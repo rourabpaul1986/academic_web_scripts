@@ -98,7 +98,7 @@ if args.verbose:
 
 
 
-file_name = "date_loader1.txt"
+file_name = "date_loader.txt"
 dates = read_nth_column(file_name, 0, ";")
 times = read_nth_column(file_name, 1, ";")
 modes = read_nth_column(file_name, 2, ";")
