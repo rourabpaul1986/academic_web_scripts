@@ -9,15 +9,21 @@ This repository has two files: (1) date_loader.txt and (2)erp.py
 ## Steps
 The execution is involved with two steps: (1) Writing date_loader.txt in proper format 7 (2) Run erp.py script with required command line arguments
 ### 1. Write date_loader.txt
-You need to make a date_loader.txt file which must have 3 columns in each rows. The 1st column stores the date, 2nd column stores the student attendance status ('P'/'A') and finaly the 3rd column should be the serial number of the students. <b>Please be carefull, date_loader.txt must not have any empty lines</b>
+You need to make a date_loader.txt file which must have 4 columns in each rows. The 1st column stores the date, 2nd column stores the time of the class, 3rd column stores the student attendance status ('P'/'A') and finaly the 4th column should be the serial number of the students. <b>Please be carefull, date_loader.txt must not have any empty lines</b>
 ```
-15/10/2024; P; 1, 3, 5, 7
-18/10/2024; A; 2, 4, 6, 7
-17/10/2024; P; 1, 3, 5, 7, 22
+15/10/2024; 08:0 AM-09:0 AM; P; 1, 3, 5, 7
+15/10/2024; 11:0 AM-12:0 AM; A; 2, 4, 6, 7
+17/10/2024; 08:0 AM-09:0 AM; P; 1, 3, 5, 7, 22
 ```
 In this above example, the students of serial number 1, 3, 5, 7 were present on date: 15/10/2024.<br>
-Similarly, the students of serial number 2, 4, 6, 7 were absent on 18/10/2024.
-
+Similarly, the students of serial number 2, 4, 6, 7 were absent on 18/10/2024.<br>
+If you have just one class in day you can skip the 2nd column blank like below:
+```
+15/10/2024; ; P; 1, 3, 5, 7
+16/10/2024; ; A; 2, 4, 6, 7
+17/10/2024; ; P; 1, 3, 5, 7, 22
+```
+<b>It is to be noted that the format of 1st column (dates) and format of 2nd column (time) should be maintained as per the ERP format</b>
 ### 2. run erp.py script
 The erp.py required 5 command line argumenrs
 ```
