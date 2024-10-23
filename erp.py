@@ -64,8 +64,8 @@ print("#######################This Program is Tested With Below Version :#######
 print(f"\t python version of this device : {sys.version}")
 print(f"\t selenium version of this device: {selenium.__version__}")
 print(f"\t webdriver_manager version of this device :  {webdriver_manager.__version__}")
-print("\t The program is tested with python  3.9.6, selenium 4.25.0 &\n\twebdriver_manager  4.0.2")
-print("###################################################################################")
+print("\t The program is tested with python: 3.9.6, selenium: 4.25.0 &webdriver_manager: 4.0.2")
+print("#########################################################################################")
 
 
 parser = argparse.ArgumentParser(description="A simple argument parser example.")
@@ -91,14 +91,14 @@ password= args.password
 semester=args.semester
 subject=args.subject
 print(f"\t Hi {username}, you have chosen Semester: {semester} \n\t Subjects : {subject} for ERP Attendance Script")
-print("#####################################################################")   
+print("#########################################################################################")   
 if args.verbose:
  print("Verbose mode is enabled.")
 ##############################################################
 
 
 
-file_name = "date_loader1.txt"
+file_name = "date_loader.txt"
 dates = read_nth_column(file_name, 0, ";")
 times = read_nth_column(file_name, 1, ";")
 modes = read_nth_column(file_name, 2, ";")
@@ -110,7 +110,7 @@ min_date, max_date = find_oldest_and_latest_dates(dates)
 
 f=min_date 
 t=max_date 
-print(f"You have entered Starting Date: {f} & Last Date : {t} in date_loader.txt")
+print(f"\t Starting Date: {f} & Last Date : {t} is entered in date_loader.txt")
 #print(sl)
 
 chrome_options = Options()
@@ -144,22 +144,22 @@ try:
     # Create a thread to handle the button click
     click_thread = threading.Thread(target=click_button)
     click_thread.start()
-    print("ERP Loading Started")
+    print("\t ERP Loading Started..")
     # Print loading messages while waiting for the button click to complete
     loading_percent = 0
     while click_thread.is_alive():
-     dot="|"
+     dot="#"
      #print(f"Loading... {loading_percent}%")
-     print(f"{dot}{loading_percent}%", end='', flush=True) 
+     print(f"{dot}", end='', flush=True) 
      time.sleep(1.2)  # Adjust the sleep time to control how often the message is printed
      loading_percent += 1
-     dot=f"{dot}|"
+     #dot=f"{dot}|"
      if loading_percent > 100:
         loading_percent = 0
 
     # Join the thread to ensure it finishes before moving on
     click_thread.join()
-    print(f"\nsuccessfully logged in with {username} credentials")
+    print(f"\t successfully logged in with {username} credentials")
     ####################################################
 except Exception as e:
     print(f"Error: {e}")
@@ -177,7 +177,7 @@ link = WebDriverWait(driver, 20).until(
     EC.element_to_be_clickable((By.XPATH, "//*[@id='widgetgroup']/div/a/div/div[2]"))
 )
 link.click()
-print("Web Kiosk Opened")
+print("\t Web Kiosk Opened")
 # Wait until the dropdown is visible and click to open the options
 dropdown = WebDriverWait(driver, 10).until(
     EC.element_to_be_clickable((By.ID, 'institute_chosen'))
@@ -259,7 +259,7 @@ time.sleep(10)
 for i in range(0, len(dates)):
     target_date = dates[i]
     target_time = times[i]
-    print(f"target time:{target_time} target date:{target_date}")
+    print(f"\t target time:{target_time} target date:{target_date}")
     mode = modes[i]
     #xpath_expression = f"//tr[td/a[contains(text(), '{target_date}')] and td[contains(text(), '{target_time}')]]"
     # XPath to find the row where the <a> contains the date and the <td> contains the time
@@ -268,13 +268,6 @@ for i in range(0, len(dates)):
 
     
     # Wait for the input field to be present
-    '''search_input = WebDriverWait(driver, 10).until(
-    EC.presence_of_element_located((By.XPATH, input_xpath)))
-    
-    # Clear the input field if needed, and type the desired text
-    search_input.clear()
-    search_input.send_keys(target_time)
-    print(f"{target_time} entered successfully.")'''
     #input_xpath = "//input[@type='search' and contains(@class, 'form-control input-sm')]"
     input_xpath ="//*[@id='datatable_filter']/label/input"
     try:
@@ -286,19 +279,13 @@ for i in range(0, len(dates)):
         # Clear the input field if needed, and type the desired text
         search_input.clear()
         search_input.send_keys(target_time)
-        print("Text entered successfully.")
+        print(f"\t {target_time} entered in filter successfully.")
 
     except Exception as e:
         print(f"Error: {str(e)}")
-    time.sleep(10)
+    #time.sleep(10)
     xpath_expression=f"//a[contains(text(), '{target_date}')]"
-    #xpath_expression = f"//tr[td/a[contains(text(), '{target_date}')] and td[contains(text(), '{target_time}')]]/td/a"
-    #xpath_expression = f"//tr[td[2]/a[contains(text(), '{target_date}')] and td[3][contains(text(), '{target_time}')]]/td[2]/a"
-    #xpath_expression = f"//tr[td/a[contains(text(), '{target_date}')] and td[contains(text(), '{target_time}')]]/td/a"
-
-    #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'tbody')))
-    #rows = driver.find_elements(By.XPATH, '//*[@id="tbody"]/tr')
-    ##################date clicking#####################################
+ 
     ################## Date Clicking #####################################
     try:
         # Attempt to find the date link
@@ -312,7 +299,7 @@ for i in range(0, len(dates)):
         # Click the element using JavaScript if normal click fails
         driver.execute_script("arguments[0].click();", date_link)
         
-        print(f"Class on: {target_date}, Time: {target_time} link opened")
+        print(f"\tClass on: {target_date}, Time: {target_time} link opened")
 
     except TimeoutException as e:
         # Handle the case where the target date link is not found
@@ -337,7 +324,7 @@ for i in range(0, len(dates)):
     time.sleep(1)
     status_radio_button.click()
     driver.execute_script("arguments[0].click();", status_radio_button)
-    print(f"All {s} of target date: {target_date} link is clicked")
+    print(f"\t All {s} of target date: {target_date} and time : {target_time} link is clicked")
     ###################################################################
     sl_list = sl[i].split(", ") ##split by comma
     for j in range(len(sl_list)):
@@ -356,16 +343,16 @@ for i in range(0, len(dates)):
      #absent_radio_button.click()     
      #print(f"{absent_radio_button_id} is clicked")   
      driver.execute_script("arguments[0].click();", absent_radio_button)
-     print(f"Date: {target_date} Sl No {students} Attendance Entered")
+     print(f"\t Class Attendance on Date: {target_date} & Time: {target_time}  is updated")
      ####################################################################     
     save_attendance_button = WebDriverWait(driver, 50).until(
     EC.element_to_be_clickable((By.XPATH, "//a[contains(text(), 'Save Attendance')]"))
     )
     save_attendance_button.click()
-    print(f"Attendance of {target_date} of Serial number: {sl_list} is uploaded in ERP ")
+    print(f"\n\t \033[31m Class Attendance on Date: {target_date} & Time: {target_time}  is Saved Successfully\033[0m")
     time.sleep(10)
 ######################################################
 
-time.sleep(20)
-print(f"\033[31m{username} your student attendance of date range {dates} uploaded successfully in ERP\033[0m")
+time.sleep(10)
+print(f"\n \033[31m{username} your student attendance of date range {dates} uploaded successfully in ERP\033[0m")
 driver.quit()
