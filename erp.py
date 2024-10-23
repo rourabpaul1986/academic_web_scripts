@@ -98,7 +98,7 @@ if args.verbose:
 
 
 
-file_name = "date_loader.txt"
+file_name = "date_loader1.txt"
 dates = read_nth_column(file_name, 0, ";")
 times = read_nth_column(file_name, 1, ";")
 modes = read_nth_column(file_name, 2, ";")
@@ -251,7 +251,7 @@ load_button.click()  # Click the Load button
 
 print(f"Date range: {f} to {t} is loaded in ERP")
 
-
+time.sleep(10)
 
 
 ###################################################
@@ -264,19 +264,40 @@ for i in range(0, len(dates)):
     #xpath_expression = f"//tr[td/a[contains(text(), '{target_date}')] and td[contains(text(), '{target_time}')]]"
     # XPath to find the row where the <a> contains the date and the <td> contains the time
     # XPath to locate the input field
-    input_xpath = "//input[@type='search' and contains(@class, 'form-control input-sm')]"
+    #input_xpath = "//input[@type='search' and contains(@class, 'form-control input-sm')]"
 
     
     # Wait for the input field to be present
-    search_input = WebDriverWait(driver, 10).until(
+    '''search_input = WebDriverWait(driver, 10).until(
     EC.presence_of_element_located((By.XPATH, input_xpath)))
     
     # Clear the input field if needed, and type the desired text
     search_input.clear()
     search_input.send_keys(target_time)
-    print(f"{target_time} entered successfully.")
-    time.sleep(1)
+    print(f"{target_time} entered successfully.")'''
+    #input_xpath = "//input[@type='search' and contains(@class, 'form-control input-sm')]"
+    input_xpath ="//*[@id='datatable_filter']/label/input"
+    try:
+        # Wait for the input field to be present
+        search_input = WebDriverWait(driver, 10).until(
+         EC.presence_of_element_located((By.XPATH, input_xpath))
+        )
+    
+        # Clear the input field if needed, and type the desired text
+        search_input.clear()
+        search_input.send_keys(target_time)
+        print("Text entered successfully.")
+
+    except Exception as e:
+        print(f"Error: {str(e)}")
+    time.sleep(10)
     xpath_expression=f"//a[contains(text(), '{target_date}')]"
+    #xpath_expression = f"//tr[td/a[contains(text(), '{target_date}')] and td[contains(text(), '{target_time}')]]/td/a"
+    #xpath_expression = f"//tr[td[2]/a[contains(text(), '{target_date}')] and td[3][contains(text(), '{target_time}')]]/td[2]/a"
+    #xpath_expression = f"//tr[td/a[contains(text(), '{target_date}')] and td[contains(text(), '{target_time}')]]/td/a"
+
+    #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'tbody')))
+    #rows = driver.find_elements(By.XPATH, '//*[@id="tbody"]/tr')
     ##################date clicking#####################################
     ################## Date Clicking #####################################
     try:
@@ -314,7 +335,7 @@ for i in range(0, len(dates)):
          EC.element_to_be_clickable((By.ID, f"all{s}"))
     )
     time.sleep(1)
-    #status_radio_button.click()
+    status_radio_button.click()
     driver.execute_script("arguments[0].click();", status_radio_button)
     print(f"All {s} of target date: {target_date} link is clicked")
     ###################################################################
@@ -342,8 +363,9 @@ for i in range(0, len(dates)):
     )
     save_attendance_button.click()
     print(f"Attendance of {target_date} of Serial number: {sl_list} is uploaded in ERP ")
+    time.sleep(10)
 ######################################################
 
-
+time.sleep(20)
 print(f"\033[31m{username} your student attendance of date range {dates} uploaded successfully in ERP\033[0m")
 driver.quit()
