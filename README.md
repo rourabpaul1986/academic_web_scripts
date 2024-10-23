@@ -17,7 +17,7 @@ You need to make a date_loader.txt file which must have 4 columns in each rows. 
 ```
 In this above example, the students of serial number 1, 3, 5, 7 were present on date: 15/10/2024.<br>
 Similarly, the students of serial number 2, 4, 6, 7 were absent on 18/10/2024.<br>
-If you have just one class in day you can skip the 2nd column blank like below:
+If you have just one class in a day, you can keep the 2nd column (time) blank like below:
 ```
 15/10/2024; ; P; 1, 3, 5, 7
 16/10/2024; ; A; 2, 4, 6, 7
