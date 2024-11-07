@@ -326,7 +326,7 @@ for i in range(0, len(dates)):
     driver.execute_script("arguments[0].click();", status_radio_button)
     print(f"\t All {s} of target date: {target_date} and time : {target_time} link is clicked")
     ###################################################################
-    sl_list = sl[i].split(", ") ##split by comma
+    sl_list = sl[i].split(",") ##split by comma
     for j in range(len(sl_list)):
      #print(f"sl list {sl_list[j]}")
      #students=sl_list[j]
@@ -343,7 +343,7 @@ for i in range(0, len(dates)):
      #absent_radio_button.click()     
      #print(f"{absent_radio_button_id} is clicked")   
      driver.execute_script("arguments[0].click();", absent_radio_button)
-     print(f"\t Class Attendance on Date: {target_date} & Time: {target_time}  is updated")
+     print(f"\t Class Attendance on Date: {target_date} & Time: {target_time}  is updated for Student Sl. No. {student-1}")
      ####################################################################     
     save_attendance_button = WebDriverWait(driver, 50).until(
     EC.element_to_be_clickable((By.XPATH, "//a[contains(text(), 'Save Attendance')]"))
