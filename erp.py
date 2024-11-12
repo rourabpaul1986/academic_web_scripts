@@ -159,7 +159,7 @@ try:
 
     # Join the thread to ensure it finishes before moving on
     click_thread.join()
-    print(f"\t successfully logged in with {username} credentials")
+    print(f"\n\t successfully logged in with {username} credentials")
     ####################################################
 except Exception as e:
     print(f"Error: {e}")
@@ -331,7 +331,11 @@ for i in range(0, len(dates)):
      #print(f"sl list {sl_list[j]}")
      #students=sl_list[j]
      students= sl_list[j].replace(" ", "")
-     student=int(students)-1 # Calibration of given Serial Number with ERP Serial Number
+     if students.isdigit():
+         student=int(students)-1 # Calibration of given Serial Number with ERP Serial Number
+     else:
+         print(f"\n\tYou have not entered integer as a student sl no. on Date: {target_date} ")
+         break
      ###################################################################
      absent_radio_button_id = f"status{s_inv}{student}"  
      #print(absent_radio_button_id)
@@ -343,7 +347,7 @@ for i in range(0, len(dates)):
      #absent_radio_button.click()     
      #print(f"{absent_radio_button_id} is clicked")   
      driver.execute_script("arguments[0].click();", absent_radio_button)
-     print(f"\t Class Attendance on Date: {target_date} & Time: {target_time}  is updated for Student Sl. No. {student-1}")
+     print(f"\t Class Attendance on Date: {target_date} & Time: {target_time}  is updated for Student Sl. No. {int(students)}")
      ####################################################################     
     save_attendance_button = WebDriverWait(driver, 50).until(
     EC.element_to_be_clickable((By.XPATH, "//a[contains(text(), 'Save Attendance')]"))
