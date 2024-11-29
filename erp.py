@@ -18,6 +18,13 @@ import sys
 import argparse
 import threading
 
+def remove_empty_lines_from_file(file_path):
+    with open(file_path, 'r') as file:
+        lines = file.readlines()  # Read all lines
+    with open(file_path, 'w') as file:
+        # Write only non-empty lines back to the file
+        file.writelines(line for line in lines if line.strip())
+
 def find_oldest_and_latest_dates(date_strings):
     """
     Find the oldest and latest dates from a list of date strings.
@@ -99,6 +106,7 @@ if args.verbose:
 
 
 file_name = "date_loader.txt"
+remove_empty_lines_from_file(file_name)
 dates = read_nth_column(file_name, 0, ";")
 times = read_nth_column(file_name, 1, ";")
 modes = read_nth_column(file_name, 2, ";")
