@@ -34,6 +34,7 @@ For an example username: 123456789, password=password, semester='ODD SEM 2024 - 
 If you want to run the chorme in headless mode you need to write
 ```
  python3 erp.py -u 123456789 -p password -sm 'ODD SEM 2024 - ITER' -sb 'CSE3156/Digital Forensics Workshop' -hl headless
+ python3 erp.py -u 123456789 -p password -sm 'EVEN SEM 2025 - ITER' -sb 'CSE3157/Penetration Testing Workshop' -hl headless
 ```
 if you want to run with Chrome Gui
 ```
