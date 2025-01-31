@@ -222,8 +222,8 @@ select_semester_span.click()
 
 # Wait until the list item containing "ODD SEM 2024 - ITER" is clickable, then click it
 semester_option = WebDriverWait(driver, 10).until(
-    EC.element_to_be_clickable((By.XPATH, f"//li[@data-option-array-index='1' and text()='{semester}']"))
-    
+    #EC.element_to_be_clickable((By.XPATH, f"//li[@data-option-array-index='1' and text()='{semester}']"))
+    EC.element_to_be_clickable((By.XPATH, f"//li[normalize-space(text())='{semester}']"))    
     #EC.element_to_be_clickable((By.CSS_SELECTOR, "li[data-option-array-index='1']"))
 )
 semester_option.click()
