@@ -7,7 +7,7 @@ This Python script automates the workflow for [SNU Chennai LMS](https://lms.snuc
 3. ✂️ Cleans and processes the downloaded Excel file
 4. 🧹 Removes unwanted patterns (e.g. `(2/2)`, `?`, `All students`)
 5. 🧬 Merges name columns
-6. 📤 Exports selected columns to a clean, print-friendly PDF
+6. 📤 Exports selected columns to a clean, print-friendly PDF for CLASS RECORD (log_book.pdf)
 
 ---
 
