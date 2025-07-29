@@ -10,7 +10,7 @@ from selenium.webdriver.support.ui import Select
 from openpyxl import load_workbook
 import time
 import argparse
-
+import getpass
 # Set download directory path (absolute path)
 import os
 from selenium import webdriver
@@ -31,14 +31,15 @@ import glob
 parser = argparse.ArgumentParser(description='Automate LMS attendance export.')
 
 parser.add_argument('-u', '--username', required=True, help='LMS Username')
-parser.add_argument('-p', '--password', required=True, help='LMS Password')
+#parser.add_argument('-p', '--password', required=True, help='LMS Password')
 parser.add_argument('-c', '--course', required=True, help='Course name link text')
 parser.add_argument("-l", "--length", type=int, required=True, help="Number of Lectures")
 
 args = parser.parse_args()
 
 USERNAME = args.username
-PASSWORD = args.password
+#PASSWORD = args.password
+PASSWORD = getpass.getpass("🔒 Enter LMS Password: ")
 COURSE_NAME = args.course
 l = args.length
 required_packages = {
