@@ -8,11 +8,6 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import Select
 from openpyxl import load_workbook
-from docx import Document
-from docx.shared import Inches, Mm, Pt
-from docx.enum.section import WD_SECTION
-from docx.oxml.ns import qn
-from docx.oxml import OxmlElement
 import time
 import argparse
 
