@@ -42,7 +42,7 @@ These are automatically installed at runtime if not present:
 ## 🧾 Usage
 
 ```bash
-python lmsAttandacne.py -u <username> -p <password> -c "<Course Name>" -l <number_of_lectures>
+python lmsAttandacne.py -u <username> -c "<Course Name>" -l <number_of_lectures>
 ```
 ## Author
 Dr. Rourab Paul
