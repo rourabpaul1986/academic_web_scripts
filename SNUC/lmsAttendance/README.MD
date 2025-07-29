@@ -1,6 +1,6 @@
 # 📘 LMS Attendance Export Automation Tool
 
-This Python script automates the following workflow for [SNU Chennai LMS](https://lms.snuchennai.edu.in):
+This Python script automates the following workflow for [SNU Chennai LMS](https://lms.snuchennai.edu.in).
 The pdf output you can paste directly on Class Record (Log Book)
 
 1. ✅ Logs in to the LMS using Selenium
