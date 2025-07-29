@@ -15,10 +15,10 @@ This Python script automates the workflow for [SNU Chennai LMS](https://lms.snuc
 
 - Automatic login and navigation using Selenium
 - Auto-installs required Python packages
-- Merges names from two columns
+- Merges first and last names from two columns
 - Removes unnecessary text patterns
 - Selects and formats specific columns
-- Outputs a **PDF** with fixed column widths:
+- Outputs a **PDF** with fixed column widths (As per Class Record):
   - First column: `46.66mm`
   - All other columns: `5.83mm`
 
