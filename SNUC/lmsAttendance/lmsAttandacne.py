@@ -101,8 +101,6 @@ def remove_first_3_rows_from_xlsx():
     wb.save(file_path)
     print(f"✅ First 4 rows removed from: {xlsx_files[0]}")
 ##########################################################################
-
-
 def export_columns_to_pdf(n, m, file, output_pdf="output.pdf"):
     if len(m) != n:
         print(f"❌ Error: n={n} but m contains {len(m)} elements: {m}")
@@ -132,13 +130,13 @@ def export_columns_to_pdf(n, m, file, output_pdf="output.pdf"):
     c = canvas.Canvas(output_pdf, pagesize=A4)
     width, height = A4
 
-    #x = 10 * mm
     x = 0 * mm
-    #y = height - 20 * mm
     y = height - 20 * mm
     row_height = 7 * mm
 
     col_widths = [46.66 * mm] + [5.83 * mm] * (n - 1)
+
+    row_count = 0  # Counter to track rows per page
 
     for row_data in data:
         current_x = x
@@ -146,8 +144,12 @@ def export_columns_to_pdf(n, m, file, output_pdf="output.pdf"):
             c.rect(current_x, y - row_height, col_widths[i], row_height)
             c.drawString(current_x + 1 * mm, y - row_height + 2 * mm, row_data[i])
             current_x += col_widths[i]
+
         y -= row_height
-        if y < 20 * mm:
+        row_count += 1
+
+        # Start a new page after every 25 rows
+        if row_count % 25 == 0:
             c.showPage()
             y = height - 20 * mm
 
@@ -300,7 +302,7 @@ export_columns_to_pdf(
     n=len(m),               # Make sure `n` matches the length of `m`
     m=m,
     file="merged_output.xlsx",
-    output_pdf="column_output.pdf"
+    output_pdf="log_book.pdf"
 )
 time.sleep(5)
 driver.quit()
