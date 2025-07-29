@@ -1,7 +1,6 @@
 # 📘 LMS Attendance Export Automation Tool
+This Python script automates the workflow for [SNU Chennai LMS](https://lms.snuchennai.edu.in). It downloads the student attendance from the LMS and generates a formatted PDF output. This PDF can be directly pasted into the Class Record (Log Book).
 
-This Python script automates the following workflow for [SNU Chennai LMS](https://lms.snuchennai.edu.in).
-The pdf output you can paste directly on Class Record (Log Book)
 
 1. ✅ Logs in to the LMS using Selenium
 2. 📥 Downloads the attendance sheet
