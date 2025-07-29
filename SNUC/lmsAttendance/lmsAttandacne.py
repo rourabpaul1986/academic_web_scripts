@@ -207,7 +207,7 @@ for module_name, pip_name in required_packages.items():
 # Convert relative path to absolute path
 download_dir = os.path.abspath("./")  # Ensures absolute path
 # Clean up existing .pdf and .xlsx files
-for file in glob.glob("*.pdf") + glob.glob("*.xlsx"):
+for file in glob.glob("log_book.pdf") + glob.glob("merged_output.xlsx")  + glob.glob("final_report.xlsx"):
     try:
         os.remove(file)
         print(f"🗑️ Removed: {file}")
