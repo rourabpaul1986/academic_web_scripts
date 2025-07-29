@@ -36,3 +36,16 @@ This Python script automates the following workflow for [SNU Chennai LMS](https:
 
 These are automatically installed at runtime if not present:
 
+
+---
+
+## 🧾 Usage
+
+```bash
+python script.py -u <username> -p <password> -c "<Course Name>" -l <number_of_lectures>
+
+## Author
+Dr. Rourab Paul
+Department of Computer Science and Engineering
+Shiv Nadar University Chennai
+
