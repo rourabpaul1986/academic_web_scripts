@@ -33,6 +33,7 @@ parser = argparse.ArgumentParser(description='Automate LMS attendance export.')
 parser.add_argument('-u', '--username', required=True, help='LMS Username')
 #parser.add_argument('-p', '--password', required=True, help='LMS Password')
 parser.add_argument('-c', '--course', required=True, help='Course name link text')
+parser.add_argument("-s", "--start", type=int, required=True, help="starting class No.")
 parser.add_argument("-l", "--length", type=int, required=True, help="Number of Lectures")
 
 args = parser.parse_args()
@@ -41,7 +42,9 @@ USERNAME = args.username
 #PASSWORD = args.password
 PASSWORD = getpass.getpass("🔒 Enter LMS Password: ")
 COURSE_NAME = args.course
+s = args.start
 l = args.length
+offset=5
 required_packages = {
     "selenium": "selenium",
     "webdriver_manager": "webdriver-manager",
@@ -285,13 +288,14 @@ rename_single_xlsx("final_report.xlsx")
 remove_first_3_rows_from_xlsx()
 merge_columns("final_report.xlsx", output_filename="merged_output.xlsx")
 remove_pattern_from_excel("merged_output.xlsx", r"\(2/2\)")
+remove_pattern_from_excel("merged_output.xlsx", r"\(0/2\)")
 time.sleep(2)
 remove_pattern_from_excel("merged_output.xlsx", r"\?")
 remove_pattern_from_excel("merged_output.xlsx", "All students")
 #export_columns_to_word(12, [4, 3, 6,7,8,9,10,11,12,13,14,15], "merged_output.xlsx")
 #export_columns_to_word(11, [3, 6,7,8,9,10,11,12,13,14,15], "merged_output.xlsx")
 
-a = list(range(6, 6 + l))  # This gives [6, 7, 8, ..., 6+l-1]
+a = list(range(offset+s, offset+s + l))  # This gives [6, 7, 8, ..., 6+l-1]
 m = [3] + a
 
 export_columns_to_pdf(
