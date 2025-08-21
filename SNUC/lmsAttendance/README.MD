@@ -42,8 +42,18 @@ These are automatically installed at runtime if not present:
 ## 🧾 Usage
 
 ```bash
-python lmsAttandacne.py -u <username> -c "<Course Name>" -l <number_of_lectures>
+python lmsAttandacne.py -u <username> -c "<Course Name>" -s <starting class no.> -l <number_of_lectures>
 ```
+If you write
+```bash
+python lmsAttandacne.py -u <username> -c "<Course Name>" -s 1 -l 20
+```
+This means it will download the attendance from 1st class to 20.
+if you write
+```bash
+python lmsAttandacne.py -u <username> -c "<Course Name>" -s 3 -l 20
+```
+This means it will download the attendance from 3rd class to 23.
 ## Author
 Dr. Rourab Paul
 Department of Computer Science and Engineering
