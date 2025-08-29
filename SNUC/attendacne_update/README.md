@@ -32,6 +32,8 @@ If a match is found, the script copies the corresponding value from the **35th c
    - Record the sheet name where the match was found.  
 3. If no match is found, record `None`.  
 4. Save the results to a new Excel file `output_results.xlsx`.
+5. **Copy the 3rd Column of `output_results.xlsx` and paste it in the specific column of file A**
+6. **Please update the total number of class too in File A**
 
 ---
 
