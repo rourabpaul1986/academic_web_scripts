@@ -1,5 +1,5 @@
 # Mail ID Matcher
-
+As the LMS IDs of the students are roll-number based, while the attendance sheet we received is registration number based, we considered email IDs as unique identifiers to accurately identify the students.
 This project provides a Python script to match mail IDs from a CSV file against an Excel file (with multiple sheets).  
 If a match is found, the script copies the corresponding value from the **35th column** of the Excel sheet.  
 
@@ -7,11 +7,16 @@ If a match is found, the script copies the corresponding value from the **35th c
 
 ## 📂 Input Files
 
-- **File A (CSV)**  
+- **File A (CSV)**
+  - This is a list of students in csv format 
   - Contains mail IDs in the **5th column**.  
   - First **9 rows are skipped** (data starts from row 10).  
 
-- **File B (Excel, `.xlsx`)**  
+- **File B (Excel, `.xlsx`)**
+  - Log in LMS
+  - Go to Attendecne
+  - Go to Export
+  - Download attendacne in xlsx format 
   - May contain multiple sheets.  
   - Each sheet has mail IDs in the **5th column**.  
   - Value to be copied is in the **35th column**.
